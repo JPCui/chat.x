@@ -1,0 +1,20 @@
+{
+  "name": "chat.js",
+  "version": "1.0.0",
+  "description": "chatting for js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chatting"
+  ],
+  "author": "sucre",
+  "license": "ISC",
+
+  "dependencies": {
+    "express": "~4.0.0",
+    "socket.io": "~0.9.16",
+    "websocket.io": "~0.2.1"
+  }
+}
