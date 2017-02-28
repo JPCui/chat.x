@@ -42,7 +42,7 @@ var getAllNickname = function(){
     }
     return result;
 }
-ws.on('connection', function(client){
+ws.on('connection', function(client) {
     console.log('\033[96m' + client.handshake.address.address + ' is connect\033[39m');
 
     var ip = client.handshake.address.address + '';
@@ -51,6 +51,7 @@ ws.on('connection', function(client){
     client.rawIp = rawIp;
 
     client.on('join', function(msg){
+        console.log(msg);
         // 检查是否有重复
         if(msg) {
             if(checkNickname(msg)){
@@ -61,18 +62,19 @@ ws.on('connection', function(client){
         } else {
             client.nickname = client.rawIp;
         }
+        console.log(client.rawIp);
         ws.sockets.emit('announcement', '系统', client.nickname + '(' + client.rawIp + ') 加入了聊天室!', {type:'join', name:getAllNickname()});
     });
     // 监听发送消息
     client.on('send.message', function(msg){
-        client.broadcast.emit('send.message', client.nickname || client.rawIp, msg);
+        client.broadcast.emit('send.message', (client.nickname || client.rawIp), msg);
     });
 
-    client.on('disconnect', function(){
+    client.on('disconnect', function(arg){
         if(client.nickname){
-            client.broadcast.emit('send.message','系统',  client.nickname || client.rawIp + '离开聊天室!', {type:'disconnect', name:client.nickname});
+            client.broadcast.emit('send.message','系统',  (client.nickname || client.rawIp) + '离开聊天室!', {type:'disconnect', name:client.nickname});
         }
-    })
+    });
 
-})
+});
 
