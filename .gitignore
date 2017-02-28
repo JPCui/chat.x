@@ -1,4 +1,5 @@
 chat.js/node_modules
 chat.java/target
 chat.java/.settings
-
+chat.java/.project
+chat.java/.classpath
